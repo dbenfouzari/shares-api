@@ -20,5 +20,22 @@ module Types
 
       Medium.select(all_selections).find(id)
     end
+
+    field :users, [UserType], null: false, description: "List all users", extras: [:lookahead]
+    field :user, UserType, null: true, description: "Find a user by ID", extras: [:lookahead] do
+      argument :id, ID, description: "User ID"
+    end
+
+    def users(lookahead:)
+      all_selections = lookahead.selections.map(&:name)
+
+      User.select(all_selections)
+    end
+
+    def user(id:, lookahead:)
+      all_selections = lookahead.selections.map(&:name)
+
+      User.select(all_selections).find(id)
+    end
   end
 end
