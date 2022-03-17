@@ -11,3 +11,6 @@ green_mile = Medium.create! title: "La Ligne Verte"
 
 donovan = User.create! first_name: "Donovan", last_name: "Benfouzari", email: "d.benfouzari@gmail.com"
 oceane = User.create! first_name: "Océane", last_name: "Crispyn", email: "crispyn.oceane@gmail.com"
+
+Share.create! user: donovan, medium: green_mile
+Share.create! user: oceane, medium: titanic

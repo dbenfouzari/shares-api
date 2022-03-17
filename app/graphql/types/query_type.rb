@@ -37,5 +37,38 @@ module Types
 
       User.select(all_selections).find(id)
     end
+
+    field :shares, [ShareType], null: false, description: "List of shares", extras: [:lookahead]
+    field :share, ShareType, null: true, description: "Find a share by ID", extras: [:lookahead] do
+      argument :id, ID, description: "Share ID"
+    end
+
+    def shares(lookahead:)
+      items = Share
+
+      if lookahead.selects?(:medium)
+        items = items.eager_load([:medium])
+      end
+
+      if lookahead.selects?(:user)
+        items = items.eager_load([:user])
+      end
+
+      items.all
+    end
+
+    def share(id:, lookahead:)
+      items = Share
+
+      if lookahead.selects?(:medium)
+        items = items.eager_load([:medium])
+      end
+
+      if lookahead.selects?(:user)
+        items = items.eager_load([:user])
+      end
+
+      items.find(id)
+    end
   end
 end

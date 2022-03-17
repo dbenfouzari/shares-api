@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   resources :media
   resources :users
+  resources :shares, except: [:update]
 end

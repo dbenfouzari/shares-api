@@ -199,7 +199,62 @@ RSpec.configure do |config|
                 nullable: true,
               },
             },
-          }
+          },
+          Share: {
+            allOf: [
+              {
+                type: :object,
+                properties: {
+                  id: {
+                    type: :integer,
+                    format: :int64,
+                    description: "Share ID",
+                    example: 1,
+                  },
+                  user_id: {
+                    type: :integer,
+                    format: :int64,
+                    description: "User ID",
+                    example: 1,
+                  },
+                  medium_id: {
+                    type: :integer,
+                    format: :int64,
+                    description: "Medium ID",
+                    example: 1,
+                  },
+                },
+                required: %w[id user_id medium_id]
+              },
+              {
+                "$ref": "#/components/schemas/Timestamps"
+              },
+            ],
+          },
+          Shares: {
+            type: :array,
+            items: {
+              "$ref": "#/components/schemas/Share"
+            }
+          },
+          CreateShareAttributes: {
+            type: :object,
+            properties: {
+              user_id: {
+                type: :integer,
+                format: :int64,
+                description: "User ID",
+                example: 1,
+              },
+              medium_id: {
+                type: :integer,
+                format: :int64,
+                description: "Medium ID",
+                example: 1,
+              },
+            },
+            required: %w[user_id medium_id]
+          },
         }
       }
     }

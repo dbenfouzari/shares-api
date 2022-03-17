@@ -92,6 +92,60 @@ paths:
       responses:
         '204':
           description: successful
+  "/shares":
+    get:
+      summary: Find all shares
+      tags:
+      - Shares
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Shares"
+    post:
+      summary: Create a single share
+      tags:
+      - Shares
+      parameters: []
+      responses:
+        '201':
+          description: share created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Share"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CreateShareAttributes"
+  "/shares/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get a share by its ID
+      tags:
+      - Shares
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Share"
+    delete:
+      summary: Delete a share given its ID
+      tags:
+      - Shares
+      responses:
+        '204':
+          description: successful
   "/users":
     get:
       summary: Find all users
@@ -173,13 +227,6 @@ paths:
           application/json:
             schema:
               "$ref": "#/components/schemas/UpdateUserAttributes"
-    delete:
-      summary: Delete a user given its ID
-      tags:
-      - Users
-      responses:
-        '204':
-          description: successful
 servers:
 - url: http://localhost:4321
   description: Local docker-compose development
@@ -321,3 +368,47 @@ components:
           description: User email
           example: john@doe.com
           nullable: true
+    Share:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+            description: Share ID
+            example: 1
+          user_id:
+            type: integer
+            format: int64
+            description: User ID
+            example: 1
+          medium_id:
+            type: integer
+            format: int64
+            description: Medium ID
+            example: 1
+        required:
+        - id
+        - user_id
+        - medium_id
+      - "$ref": "#/components/schemas/Timestamps"
+    Shares:
+      type: array
+      items:
+        "$ref": "#/components/schemas/Share"
+    CreateShareAttributes:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          description: User ID
+          example: 1
+        medium_id:
+          type: integer
+          format: int64
+          description: Medium ID
+          example: 1
+      required:
+      - user_id
+      - medium_id
