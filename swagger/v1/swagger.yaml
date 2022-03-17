@@ -1,0 +1,163 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/media":
+    get:
+      summary: list media
+      tags:
+      - Media
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Media"
+    post:
+      summary: create medium
+      tags:
+      - Media
+      parameters: []
+      responses:
+        '201':
+          description: medium created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Medium"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CreateMediumAttributes"
+  "/media/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show medium
+      tags:
+      - Media
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Medium"
+    patch:
+      summary: update medium
+      tags:
+      - Media
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Medium"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateMediumAttributes"
+    put:
+      summary: update medium
+      tags:
+      - Media
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Medium"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateMediumAttributes"
+    delete:
+      summary: delete medium
+      tags:
+      - Media
+      responses:
+        '204':
+          description: successful
+servers:
+- url: http://localhost:4321
+  description: Local docker-compose development
+components:
+  schemas:
+    Timestamps:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: Entity creation date and time
+        updated_at:
+          type: string
+          format: date-time
+          description: Entity update date and time
+      required:
+      - created_at
+      - updated_at
+    Media:
+      type: array
+      items:
+        "$ref": "#/components/schemas/Medium"
+    Medium:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+            description: Medium ID
+            example: 1
+          title:
+            type: string
+            description: Medium title
+            example: Medium title
+          description:
+            type: string
+            description: Medium description
+            example: Medium description
+            nullable: true
+        required:
+        - id
+        - title
+      - "$ref": "#/components/schemas/Timestamps"
+    CreateMediumAttributes:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Medium title
+          example: Medium title
+        description:
+          type: string
+          description: Medium description
+          example: Medium description
+      required:
+      - title
+    UpdateMediumAttributes:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Medium title
+          example: Medium title
+        description:
+          type: string
+          description: Medium description
+          example: Medium description

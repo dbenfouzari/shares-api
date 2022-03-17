@@ -11,4 +11,7 @@ Rswag::Ui.configure do |c|
   # Add Basic Auth in case your API is private
   # c.basic_auth_enabled = true
   # c.basic_auth_credentials 'username', 'password'
+
+  c.basic_auth_enabled = true
+  c.basic_auth_credentials 'admin', 'admin'
 end

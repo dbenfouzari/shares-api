@@ -24,14 +24,97 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'http://{defaultHost}',
-          variables: {
-            defaultHost: {
-              default: 'localhost:4321'
-            }
-          }
+          url: 'http://localhost:4321',
+          description: "Local docker-compose development",
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          Timestamps: {
+            type: :object,
+            properties: {
+              created_at: {
+                type: :string,
+                format: 'date-time',
+                description: "Entity creation date and time",
+              },
+              updated_at: {
+                type: :string,
+                format: 'date-time',
+                description: "Entity update date and time",
+              }
+            },
+            required: %w[created_at updated_at],
+          },
+          Media: {
+            type: :array,
+            items: {
+              '$ref': '#/components/schemas/Medium'
+            }
+          },
+          Medium: {
+            allOf: [
+              {
+                type: :object,
+                properties: {
+                  id: {
+                    type: :integer,
+                    format: :int64,
+                    description: "Medium ID",
+                    example: 1,
+                  },
+                  title: {
+                    type: :string,
+                    description: "Medium title",
+                    example: "Medium title",
+                  },
+                  description: {
+                    type: :string,
+                    description: "Medium description",
+                    example: "Medium description",
+                    nullable: true,
+                  },
+                },
+                required: %w[id title]
+              },
+              {
+                "$ref": "#/components/schemas/Timestamps",
+              }
+            ]
+          },
+          CreateMediumAttributes: {
+            type: :object,
+            properties: {
+              title: {
+                type: :string,
+                description: "Medium title",
+                example: "Medium title",
+              },
+              description: {
+                type: :string,
+                description: "Medium description",
+                example: "Medium description",
+              },
+            },
+            required: ['title']
+          },
+          UpdateMediumAttributes: {
+            type: :object,
+            properties: {
+              title: {
+                type: :string,
+                description: "Medium title",
+                example: "Medium title",
+              },
+              description: {
+                type: :string,
+                description: "Medium description",
+                example: "Medium description",
+              },
+            },
+          },
+        }
+      }
     }
   }
 
