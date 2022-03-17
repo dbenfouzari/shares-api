@@ -4,14 +4,21 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    field :media, [MediumType], null: false, description: "List all media", extras: [:lookahead]
+    field :medium, MediumType, null: true, description: "Find a medium by ID", extras: [:lookahead] do
+      argument :id, ID, description: "Medium ID"
+    end
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    def media(lookahead:)
+      all_selections = lookahead.selections.map(&:name)
+
+      Medium.select(all_selections)
+    end
+
+    def medium(id:, lookahead:)
+      all_selections = lookahead.selections.map(&:name)
+
+      Medium.select(all_selections).find(id)
     end
   end
 end

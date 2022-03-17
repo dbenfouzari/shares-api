@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 RSpec.describe 'media', type: :request do
   path '/media' do
-    get 'list media' do
+    get 'Find all media' do
       tags 'Media'
       produces "application/json"
 
@@ -13,7 +13,7 @@ RSpec.describe 'media', type: :request do
       end
     end
 
-    post 'create medium' do
+    post 'Create a single medium' do
       tags 'Media'
       consumes 'application/json'
       produces 'application/json'
@@ -35,7 +35,7 @@ RSpec.describe 'media', type: :request do
     # You'll want to customize the parameter types...
     parameter name: :id, in: :path, type: :string
 
-    get 'show medium' do
+    get 'Get a medium by its ID' do
       tags 'Media'
       produces 'application/json'
 
@@ -47,7 +47,7 @@ RSpec.describe 'media', type: :request do
       end
     end
 
-    patch 'update medium' do
+    patch 'Update a medium' do
       tags 'Media'
       produces 'application/json'
       consumes 'application/json'
@@ -65,7 +65,7 @@ RSpec.describe 'media', type: :request do
       end
     end
 
-    put('update medium') do
+    put 'Update a medium' do
       tags 'Media'
       produces 'application/json'
       consumes 'application/json'
@@ -83,7 +83,7 @@ RSpec.describe 'media', type: :request do
       end
     end
 
-    delete('delete medium') do
+    delete "Delete a medium given its ID" do
       tags 'Media'
 
       response 204, 'successful' do
