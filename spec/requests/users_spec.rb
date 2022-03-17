@@ -25,7 +25,7 @@ RSpec.describe 'users', type: :request do
       response 201, 'user created' do
         schema "$ref" => "#/components/schemas/User"
 
-        let(:user) { { title: "User title" } }
+        let(:user) { { first_name: "John", last_name: "Doe", email: "john@doe.com" } }
         run_test!
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe 'users', type: :request do
       response 200, 'successful' do
         schema "$ref" => "#/components/schemas/User"
 
-        let(:id) { User.create!(title: "User title").id }
+        let(:id) { User.create!(first_name: "John", last_name: "Doe", email: "john@doe.com").id }
         run_test!
       end
     end
@@ -59,8 +59,8 @@ RSpec.describe 'users', type: :request do
       response(200, 'successful') do
         schema "$ref" => "#/components/schemas/User"
 
-        let(:id) { User.create!(title: "User title").id }
-        let(:user) { { title: "New title" } }
+        let(:id) { User.create!(first_name: "John", last_name: "Doe", email: "john@doe.com").id }
+        let(:user) { { first_name: "Jane" } }
         run_test!
       end
     end
@@ -77,18 +77,8 @@ RSpec.describe 'users', type: :request do
       response(200, 'successful') do
         schema "$ref" => "#/components/schemas/User"
 
-        let(:id) { User.create!(title: "User title").id }
-        let(:user) { { title: "New title" } }
-        run_test!
-      end
-    end
-
-    delete "Delete a user given its ID" do
-      tags 'Users'
-
-      response 204, 'successful' do
-        let(:id) { User.create!(title: "User title").id }
-
+        let(:id) { User.create!(first_name: "John", last_name: "Doe", email: "john@doe.com").id }
+        let(:user) { { first_name: "Jane" } }
         run_test!
       end
     end

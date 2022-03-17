@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   end
 
   resources :media
-  resources :users
+  resources :users, except: [:destroy]
   resources :shares, except: [:update]
 end
