@@ -113,6 +113,93 @@ RSpec.configure do |config|
               },
             },
           },
+          User: {
+            allOf: [
+              {
+                type: :object,
+                properties: {
+                  id: {
+                    type: :integer,
+                    format: :int64,
+                    description: "User ID",
+                    example: 1,
+                  },
+                  first_name: {
+                    type: :string,
+                    description: "User first name",
+                    example: "John",
+                  },
+                  last_name: {
+                    type: :string,
+                    description: "User last name",
+                    example: "Doe",
+                  },
+                  email: {
+                    type: :string,
+                    format: :email,
+                    description: "User email",
+                    example: "john@doe.com",
+                  },
+                },
+                required: %w[id first_name last_name email]
+              },
+              {
+                "$ref": "#/components/schemas/Timestamps",
+              }
+            ]
+          },
+          Users: {
+            type: :array,
+            items: {
+              "$ref": "#/components/schemas/User",
+            },
+          },
+          CreateUserAttributes: {
+            type: :object,
+            properties: {
+              first_name: {
+                type: :string,
+                description: "User first name",
+                example: "John",
+              },
+              last_name: {
+                type: :string,
+                description: "User last name",
+                example: "Doe",
+              },
+              email: {
+                type: :string,
+                format: :email,
+                description: "User email",
+                example: "john@doe.com",
+              },
+            },
+            required: %w[id first_name last_name email]
+          },
+          UpdateUserAttributes: {
+            type: :object,
+            properties: {
+              first_name: {
+                type: :string,
+                description: "User first name",
+                example: "John",
+                nullable: true,
+              },
+              last_name: {
+                type: :string,
+                description: "User last name",
+                example: "Doe",
+                nullable: true,
+              },
+              email: {
+                type: :string,
+                format: :email,
+                description: "User email",
+                example: "john@doe.com",
+                nullable: true,
+              },
+            },
+          }
         }
       }
     }

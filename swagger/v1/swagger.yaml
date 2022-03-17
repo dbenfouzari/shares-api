@@ -92,6 +92,94 @@ paths:
       responses:
         '204':
           description: successful
+  "/users":
+    get:
+      summary: Find all users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Users"
+    post:
+      summary: Create a single user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CreateUserAttributes"
+  "/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get a user by its ID
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+    patch:
+      summary: Update a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateUserAttributes"
+    put:
+      summary: Update a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateUserAttributes"
+    delete:
+      summary: Delete a user given its ID
+      tags:
+      - Users
+      responses:
+        '204':
+          description: successful
 servers:
 - url: http://localhost:4321
   description: Local docker-compose development
@@ -161,3 +249,75 @@ components:
           type: string
           description: Medium description
           example: Medium description
+    User:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+            description: User ID
+            example: 1
+          first_name:
+            type: string
+            description: User first name
+            example: John
+          last_name:
+            type: string
+            description: User last name
+            example: Doe
+          email:
+            type: string
+            format: email
+            description: User email
+            example: john@doe.com
+        required:
+        - id
+        - first_name
+        - last_name
+        - email
+      - "$ref": "#/components/schemas/Timestamps"
+    Users:
+      type: array
+      items:
+        "$ref": "#/components/schemas/User"
+    CreateUserAttributes:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: User first name
+          example: John
+        last_name:
+          type: string
+          description: User last name
+          example: Doe
+        email:
+          type: string
+          format: email
+          description: User email
+          example: john@doe.com
+      required:
+      - id
+      - first_name
+      - last_name
+      - email
+    UpdateUserAttributes:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: User first name
+          example: John
+          nullable: true
+        last_name:
+          type: string
+          description: User last name
+          example: Doe
+          nullable: true
+        email:
+          type: string
+          format: email
+          description: User email
+          example: john@doe.com
+          nullable: true

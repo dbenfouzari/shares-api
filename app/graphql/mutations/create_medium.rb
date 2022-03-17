@@ -1,4 +1,6 @@
 class Mutations::CreateMedium < Mutations::BaseMutation
+  description "Create a medium"
+
   null true
   argument :title, String, required: true, description: "Medium title"
   argument :description, String, required: false, description: "Medium description"
