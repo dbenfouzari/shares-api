@@ -4,15 +4,23 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :media, [MediumType], null: false, description: "List all media", extras: [:lookahead]
+    field :media, [MediumType], null: false, description: "List all media", extras: [:lookahead] do
+      argument :type, Types::MediaEnumType, required: false, description: "Filter by media type"
+    end
     field :medium, MediumType, null: true, description: "Find a medium by ID", extras: [:lookahead] do
       argument :id, ID, description: "Medium ID"
     end
 
-    def media(lookahead:)
+    def media(type: nil, lookahead:)
+      scope = Medium
+
+      if type
+        scope = scope.where(medium_type: type)
+      end
+
       all_selections = lookahead.selections.map(&:name)
 
-      Medium.select(all_selections)
+      scope.select(all_selections)
     end
 
     def medium(id:, lookahead:)

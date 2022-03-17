@@ -10,16 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_17_110138) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_17_145251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "medium_type", ["book", "restaurant", "movie", "series", "video_game"]
 
   create_table "media", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "medium_type", enum_type: "medium_type"
+    t.index ["medium_type"], name: "index_media_on_medium_type"
   end
 
   create_table "shares", force: :cascade do |t|

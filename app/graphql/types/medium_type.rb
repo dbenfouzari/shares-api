@@ -7,6 +7,7 @@ module Types
     field :id, ID, null: false, description: "Medium ID"
     field :title, String, null: false, description: "Medium title"
     field :description, String, null: true, description: "Medium description"
+    field :medium_type, Types::MediaEnumType, null: false, description: "Medium type"
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
