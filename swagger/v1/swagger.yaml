@@ -6,7 +6,7 @@ info:
 paths:
   "/media":
     get:
-      summary: list media
+      summary: Find all media
       tags:
       - Media
       responses:
@@ -17,7 +17,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Media"
     post:
-      summary: create medium
+      summary: Create a single medium
       tags:
       - Media
       parameters: []
@@ -41,7 +41,7 @@ paths:
       schema:
         type: string
     get:
-      summary: show medium
+      summary: Get a medium by its ID
       tags:
       - Media
       responses:
@@ -52,7 +52,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Medium"
     patch:
-      summary: update medium
+      summary: Update a medium
       tags:
       - Media
       parameters: []
@@ -69,7 +69,7 @@ paths:
             schema:
               "$ref": "#/components/schemas/UpdateMediumAttributes"
     put:
-      summary: update medium
+      summary: Update a medium
       tags:
       - Media
       parameters: []
@@ -86,7 +86,7 @@ paths:
             schema:
               "$ref": "#/components/schemas/UpdateMediumAttributes"
     delete:
-      summary: delete medium
+      summary: Delete a medium given its ID
       tags:
       - Media
       responses:
