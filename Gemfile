@@ -56,6 +56,7 @@ group :development do
   # gem "spring"
   gem 'annotate'
   gem 'brakeman'
+  gem 'bundle-audit'
   gem 'graphiql-rails'
   gem 'rubocop'
 end

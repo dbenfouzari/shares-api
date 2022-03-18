@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,67 +10,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_220_318_082_314) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_18_082314) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'citext'
-  enable_extension 'plpgsql'
+  enable_extension "citext"
+  enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum 'medium_type', %w[book restaurant movie series video_game]
+  create_enum "medium_type", ["book", "restaurant", "movie", "series", "video_game"]
 
-  create_table 'comments', force: :cascade do |t|
-    t.bigint 'author_id'
-    t.string 'commentable_type', null: false
-    t.bigint 'commentable_id', null: false
-    t.text 'body', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['author_id'], name: 'index_comments_on_author_id'
-    t.index %w[commentable_type commentable_id], name: 'index_comments_on_commentable'
+  create_table "comments", force: :cascade do |t|
+    t.bigint "author_id"
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
   end
 
-  create_table 'likes', force: :cascade do |t|
-    t.string 'likable_type', null: false
-    t.bigint 'likable_id', null: false
-    t.bigint 'user_id', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index %w[likable_id likable_type user_id], name: 'index_likes_on_likable_id_and_likable_type_and_user_id',
-                                                 unique: true
-    t.index %w[likable_type likable_id], name: 'index_likes_on_likable'
-    t.index ['user_id'], name: 'index_likes_on_user_id'
+  create_table "likes", force: :cascade do |t|
+    t.string "likable_type", null: false
+    t.bigint "likable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likable_id", "likable_type", "user_id"], name: "index_likes_on_likable_id_and_likable_type_and_user_id", unique: true
+    t.index ["likable_type", "likable_id"], name: "index_likes_on_likable"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table 'media', force: :cascade do |t|
-    t.string 'title'
-    t.text 'description'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.enum 'medium_type', enum_type: 'medium_type'
-    t.index ['medium_type'], name: 'index_media_on_medium_type'
+  create_table "media", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "medium_type", enum_type: "medium_type"
+    t.index ["medium_type"], name: "index_media_on_medium_type"
   end
 
-  create_table 'shares', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'medium_id', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['medium_id'], name: 'index_shares_on_medium_id'
-    t.index ['user_id'], name: 'index_shares_on_user_id'
+  create_table "shares", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "medium_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["medium_id"], name: "index_shares_on_medium_id"
+    t.index ["user_id"], name: "index_shares_on_user_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'first_name', null: false
-    t.string 'last_name', null: false
-    t.citext 'email', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['email'], name: 'index_users_on_email', unique: true
+  create_table "users", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.citext "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key 'comments', 'users', column: 'author_id'
-  add_foreign_key 'likes', 'users'
-  add_foreign_key 'shares', 'media'
-  add_foreign_key 'shares', 'users'
+  add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "likes", "users"
+  add_foreign_key "shares", "media"
+  add_foreign_key "shares", "users"
 end
