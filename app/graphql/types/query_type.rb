@@ -52,35 +52,32 @@ module Types
     end
 
     def shares(lookahead:)
-      items = Share
-
-      if lookahead.selects?(:medium)
-        items = items.eager_load([:medium])
-      end
-
-      if lookahead.selects?(:likes)
-        items = items.eager_load([:likes])
-      end
-
-      if lookahead.selects?(:user)
-        items = items.eager_load([:user])
-      end
+      items = load_shares(lookahead)
 
       items.all
     end
 
     def share(id:, lookahead:)
-      items = Share
-
-      if lookahead.selects?(:medium)
-        items = items.eager_load([:medium])
-      end
-
-      if lookahead.selects?(:user)
-        items = items.eager_load([:user])
-      end
+      items = load_shares(lookahead)
 
       items.find(id)
+    end
+
+    private
+
+    def load_shares(lookahead)
+      items = Share
+
+      items = items.eager_load([:medium]) if lookahead.selects?(:medium)
+      items = items.eager_load([:likes]) if lookahead.selects?(:likes)
+      items = items.eager_load([:user]) if lookahead.selects?(:user)
+
+      if lookahead.selects?(:comments)
+        items = items.eager_load([comments: :author]) if lookahead.selection(:comments).selects?(:author)
+        items = items.eager_load([:comments]) unless lookahead.selection(:comments).selects?(:author)
+      end
+
+      items
     end
   end
 end

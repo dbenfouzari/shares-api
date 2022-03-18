@@ -7,16 +7,18 @@ class User < ApplicationRecord
 
   has_many :likes
 
+  has_many :comments
+
   def share(medium)
     media << medium
   end
 
   def like!(likable)
-    likes.create! likable: likable
+    likes.create! likable:
   end
 
   def unlike!(likable)
-    like = likes.where(likable: likable).first
+    like = likes.where(likable:).first
 
     if like
       likes.destroy like.id

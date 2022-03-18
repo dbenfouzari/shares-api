@@ -12,5 +12,8 @@ green_mile = Medium.create! title: "La Ligne Verte", medium_type: Medium.medium_
 donovan = User.create! first_name: "Donovan", last_name: "Benfouzari", email: "d.benfouzari@gmail.com"
 oceane = User.create! first_name: "Océane", last_name: "Crispyn", email: "crispyn.oceane@gmail.com"
 
-donovan.share green_mile
-oceane.share titanic
+share_green_mile = Share.create! medium: green_mile, user: donovan
+share_titanic = Share.create! medium: titanic, user: oceane
+
+comment1 = Comment.create! author: oceane, commentable: share_green_mile, body: "Great movie!"
+comment2 = Comment.create! author: donovan, commentable: share_titanic, body: "Already seen 1000 times..."

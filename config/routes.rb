@@ -11,8 +11,11 @@ Rails.application.routes.draw do
   concern :likeable do
     resources :likes, except: [:show, :update]
   end
+  concern :commentable do
+    resources :comments, except: [:show], concerns: :likeable
+  end
 
   resources :media
   resources :users, except: [:destroy]
-  resources :shares, except: [:update], concerns: :likeable
+  resources :shares, except: [:update], concerns: [:likeable, :commentable]
 end
