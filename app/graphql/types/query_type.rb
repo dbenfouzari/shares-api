@@ -1,22 +1,24 @@
+# frozen_string_literal: true
+
 module Types
+  # Represent all GraphQL queries
   class QueryType < Types::BaseObject
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :media, [MediumType], null: false, description: "List all media", extras: [:lookahead] do
-      argument :type, Types::MediaEnumType, required: false, description: "Filter by media type"
+    field :media, [MediumType], null: false, description: 'List all media', extras: [:lookahead] do
+      argument :type, Types::MediaEnumType, required: false, description: 'Filter by media type'
     end
-    field :medium, MediumType, null: true, description: "Find a medium by ID", extras: [:lookahead] do
-      argument :id, ID, description: "Medium ID"
+    field :medium, MediumType, null: true, description: 'Find a medium by ID',
+                               extras: [:lookahead] do
+      argument :id, ID, description: 'Medium ID'
     end
 
-    def media(type: nil, lookahead:)
+    def media(lookahead:, type: nil)
       scope = Medium
 
-      if type
-        scope = scope.where(medium_type: type)
-      end
+      scope = scope.where(medium_type: type) if type
 
       all_selections = lookahead.selections.map(&:name)
 
@@ -29,9 +31,9 @@ module Types
       Medium.select(all_selections).find(id)
     end
 
-    field :users, [UserType], null: false, description: "List all users", extras: [:lookahead]
-    field :user, UserType, null: true, description: "Find a user by ID", extras: [:lookahead] do
-      argument :id, ID, description: "User ID"
+    field :users, [UserType], null: false, description: 'List all users', extras: [:lookahead]
+    field :user, UserType, null: true, description: 'Find a user by ID', extras: [:lookahead] do
+      argument :id, ID, description: 'User ID'
     end
 
     def users(lookahead:)
@@ -46,9 +48,9 @@ module Types
       User.select(all_selections).find(id)
     end
 
-    field :shares, [ShareType], null: false, description: "List of shares", extras: [:lookahead]
-    field :share, ShareType, null: true, description: "Find a share by ID", extras: [:lookahead] do
-      argument :id, ID, description: "Share ID"
+    field :shares, [ShareType], null: false, description: 'List of shares', extras: [:lookahead]
+    field :share, ShareType, null: true, description: 'Find a share by ID', extras: [:lookahead] do
+      argument :id, ID, description: 'Share ID'
     end
 
     def shares(lookahead:)

@@ -1,25 +1,24 @@
-class Mutations::CreateMedium < Mutations::BaseMutation
-  description "Create a medium"
+# frozen_string_literal: true
 
-  null true
-  argument :title, String, required: true, description: "Medium title"
-  argument :description, String, required: false, description: "Medium description"
+module Mutations
+  # Mutation to create a Medium
+  class CreateMedium < Mutations::BaseMutation
+    description 'Create a medium'
 
-  field :medium, Types::MediumType, description: "Created medium"
-  field :errors, [String], null: false, description: "Errors during medium creation"
+    null true
+    argument :title, String, required: true, description: 'Medium title'
+    argument :description, String, required: false, description: 'Medium description'
 
-  def resolve(title:, description: nil)
-    medium = Medium.new(title: title, description: description)
-    if medium.save
-      {
-        medium: medium,
-        errors: [],
-      }
-    else
-      {
-        medium: nil,
-        errors: medium.errors.full_messages,
-      }
+    field :medium, Types::MediumType, description: 'Created medium'
+    field :errors, [String], null: false, description: 'Errors during medium creation'
+
+    def resolve(title:, description: nil)
+      medium = Medium.new(title:, description:)
+      if medium.save
+        { medium:, errors: [] }
+      else
+        { medium: nil, errors: medium.errors.full_messages }
+      end
     end
   end
 end

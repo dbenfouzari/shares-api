@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# (/comments) Comments controller
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show update destroy ]
+  before_action :set_comment, only: %i[show update destroy]
 
   # GET /comments
   def index
@@ -39,13 +42,14 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit(:author_id, :commentable_id, :commentable_type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def comment_params
+    params.require(:comment).permit(:author_id, :commentable_id, :commentable_type)
+  end
 end

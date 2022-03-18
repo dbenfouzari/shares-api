@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module Behaveable
+  # Helpers to extract route from polymorphic controller association
   module RouteExtractor
-    def extract (behaveable = nil, resource = nil)
+    def extract(behaveable = nil, resource = nil)
       resource_name   = resource_name_from(params)
       behaveable_name = behaveable_name_from(behaveable)
 
@@ -15,11 +18,13 @@ module Behaveable
 
     def regular(location_url, resource)
       return send(location_url) unless resource
+
       send(location_url, resource)
     end
 
     def nested(location_url, behaveable, resource)
       return send(location_url, behaveable) unless resource
+
       send(location_url, behaveable, resource)
     end
 
@@ -30,6 +35,7 @@ module Behaveable
 
     def behaveable_name_from(behaveable)
       return unless behaveable
+
       behaveable.class.name.underscore
     end
   end

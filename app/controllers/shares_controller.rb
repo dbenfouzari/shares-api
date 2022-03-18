@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# (/shares) Shares controller
 class SharesController < ApplicationController
-  before_action :set_share, only: %i[ show update destroy ]
+  before_action :set_share, only: %i[show update destroy]
 
   # GET /shares
   def index
@@ -30,13 +33,14 @@ class SharesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_share
-      @share = Share.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def share_params
-      params.require(:share).permit(:user_id, :medium_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_share
+    @share = Share.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def share_params
+    params.require(:share).permit(:user_id, :medium_id)
+  end
 end

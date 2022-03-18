@@ -1,25 +1,24 @@
-class Mutations::DeleteShare < Mutations::BaseMutation
-  description "Delete a share"
+# frozen_string_literal: true
 
-  null true
-  argument :id, ID, required: true, description: "Share ID"
+module Mutations
+  # Mutation that is used to delete a Share
+  class DeleteShare < Mutations::BaseMutation
+    description 'Delete a share'
 
-  field :share, Types::ShareType, description: "Deleted share"
-  field :errors, [String], null: false, description: "Errors during share creation"
+    null true
+    argument :id, ID, required: true, description: 'Share ID'
 
-  def resolve(id:)
-    share = Share.find(id)
+    field :share, Types::ShareType, description: 'Deleted share'
+    field :errors, [String], null: false, description: 'Errors during share creation'
 
-    if share.delete
-      {
-        share: share,
-        errors: [],
-      }
-    else
-      {
-        share: nil,
-        errors: share.errors.full_messages,
-      }
+    def resolve(id:)
+      share = Share.find(id)
+
+      if share.delete
+        { share:, errors: [] }
+      else
+        { share: nil, errors: share.errors.full_messages }
+      end
     end
   end
 end

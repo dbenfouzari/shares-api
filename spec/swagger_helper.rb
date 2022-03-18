@@ -25,7 +25,7 @@ RSpec.configure do |config|
       servers: [
         {
           url: 'http://localhost:4321',
-          description: "Local docker-compose development",
+          description: 'Local docker-compose development'
         }
       ],
       components: {
@@ -36,15 +36,15 @@ RSpec.configure do |config|
               created_at: {
                 type: :string,
                 format: 'date-time',
-                description: "Entity creation date and time",
+                description: 'Entity creation date and time'
               },
               updated_at: {
                 type: :string,
                 format: 'date-time',
-                description: "Entity update date and time",
+                description: 'Entity update date and time'
               }
             },
-            required: %w[created_at updated_at],
+            required: %w[created_at updated_at]
           },
           Media: {
             type: :array,
@@ -60,25 +60,25 @@ RSpec.configure do |config|
                   id: {
                     type: :integer,
                     format: :int64,
-                    description: "Medium ID",
-                    example: 1,
+                    description: 'Medium ID',
+                    example: 1
                   },
                   title: {
                     type: :string,
-                    description: "Medium title",
-                    example: "Medium title",
+                    description: 'Medium title',
+                    example: 'Medium title'
                   },
                   description: {
                     type: :string,
-                    description: "Medium description",
-                    example: "Medium description",
-                    nullable: true,
-                  },
+                    description: 'Medium description',
+                    example: 'Medium description',
+                    nullable: true
+                  }
                 },
                 required: %w[id title]
               },
               {
-                "$ref": "#/components/schemas/Timestamps",
+                '$ref': '#/components/schemas/Timestamps'
               }
             ]
           },
@@ -87,14 +87,14 @@ RSpec.configure do |config|
             properties: {
               title: {
                 type: :string,
-                description: "Medium title",
-                example: "Medium title",
+                description: 'Medium title',
+                example: 'Medium title'
               },
               description: {
                 type: :string,
-                description: "Medium description",
-                example: "Medium description",
-              },
+                description: 'Medium description',
+                example: 'Medium description'
+              }
             },
             required: ['title']
           },
@@ -103,15 +103,15 @@ RSpec.configure do |config|
             properties: {
               title: {
                 type: :string,
-                description: "Medium title",
-                example: "Medium title",
+                description: 'Medium title',
+                example: 'Medium title'
               },
               description: {
                 type: :string,
-                description: "Medium description",
-                example: "Medium description",
-              },
-            },
+                description: 'Medium description',
+                example: 'Medium description'
+              }
+            }
           },
           User: {
             allOf: [
@@ -121,58 +121,58 @@ RSpec.configure do |config|
                   id: {
                     type: :integer,
                     format: :int64,
-                    description: "User ID",
-                    example: 1,
+                    description: 'User ID',
+                    example: 1
                   },
                   first_name: {
                     type: :string,
-                    description: "User first name",
-                    example: "John",
+                    description: 'User first name',
+                    example: 'John'
                   },
                   last_name: {
                     type: :string,
-                    description: "User last name",
-                    example: "Doe",
+                    description: 'User last name',
+                    example: 'Doe'
                   },
                   email: {
                     type: :string,
                     format: :email,
-                    description: "User email",
-                    example: "john@doe.com",
-                  },
+                    description: 'User email',
+                    example: 'john@doe.com'
+                  }
                 },
                 required: %w[id first_name last_name email]
               },
               {
-                "$ref": "#/components/schemas/Timestamps",
+                '$ref': '#/components/schemas/Timestamps'
               }
             ]
           },
           Users: {
             type: :array,
             items: {
-              "$ref": "#/components/schemas/User",
-            },
+              '$ref': '#/components/schemas/User'
+            }
           },
           CreateUserAttributes: {
             type: :object,
             properties: {
               first_name: {
                 type: :string,
-                description: "User first name",
-                example: "John",
+                description: 'User first name',
+                example: 'John'
               },
               last_name: {
                 type: :string,
-                description: "User last name",
-                example: "Doe",
+                description: 'User last name',
+                example: 'Doe'
               },
               email: {
                 type: :string,
                 format: :email,
-                description: "User email",
-                example: "john@doe.com",
-              },
+                description: 'User email',
+                example: 'john@doe.com'
+              }
             },
             required: %w[id first_name last_name email]
           },
@@ -181,24 +181,24 @@ RSpec.configure do |config|
             properties: {
               first_name: {
                 type: :string,
-                description: "User first name",
-                example: "John",
-                nullable: true,
+                description: 'User first name',
+                example: 'John',
+                nullable: true
               },
               last_name: {
                 type: :string,
-                description: "User last name",
-                example: "Doe",
-                nullable: true,
+                description: 'User last name',
+                example: 'Doe',
+                nullable: true
               },
               email: {
                 type: :string,
                 format: :email,
-                description: "User email",
-                example: "john@doe.com",
-                nullable: true,
-              },
-            },
+                description: 'User email',
+                example: 'john@doe.com',
+                nullable: true
+              }
+            }
           },
           Share: {
             allOf: [
@@ -208,33 +208,33 @@ RSpec.configure do |config|
                   id: {
                     type: :integer,
                     format: :int64,
-                    description: "Share ID",
-                    example: 1,
+                    description: 'Share ID',
+                    example: 1
                   },
                   user_id: {
                     type: :integer,
                     format: :int64,
-                    description: "User ID",
-                    example: 1,
+                    description: 'User ID',
+                    example: 1
                   },
                   medium_id: {
                     type: :integer,
                     format: :int64,
-                    description: "Medium ID",
-                    example: 1,
-                  },
+                    description: 'Medium ID',
+                    example: 1
+                  }
                 },
                 required: %w[id user_id medium_id]
               },
               {
-                "$ref": "#/components/schemas/Timestamps"
-              },
-            ],
+                '$ref': '#/components/schemas/Timestamps'
+              }
+            ]
           },
           Shares: {
             type: :array,
             items: {
-              "$ref": "#/components/schemas/Share"
+              '$ref': '#/components/schemas/Share'
             }
           },
           CreateShareAttributes: {
@@ -243,15 +243,15 @@ RSpec.configure do |config|
               user_id: {
                 type: :integer,
                 format: :int64,
-                description: "User ID",
-                example: 1,
+                description: 'User ID',
+                example: 1
               },
               medium_id: {
                 type: :integer,
                 format: :int64,
-                description: "Medium ID",
-                example: 1,
-              },
+                description: 'Medium ID',
+                example: 1
+              }
             },
             required: %w[user_id medium_id]
           },
@@ -265,34 +265,34 @@ RSpec.configure do |config|
               id: {
                 type: :integer,
                 format: :int64,
-                description: "Like ID",
-                example: 1,
+                description: 'Like ID',
+                example: 1
               },
               likable_id: {
                 type: :integer,
                 format: :int64,
-                description: "Likeable ID",
-                example: 1,
+                description: 'Likeable ID',
+                example: 1
               },
               likable_type: {
                 type: :string,
                 enum: %w[Share Comment],
-                description: "Likeable type",
-                example: "Share",
+                description: 'Likeable type',
+                example: 'Share'
               },
               user_id: {
                 type: :integer,
                 format: :int64,
-                description: "ID of user that liked the likeable",
-                example: 1,
-              },
+                description: 'ID of user that liked the likeable',
+                example: 1
+              }
             },
             required: %w[id likable_id likable_type user_id]
           },
           Likes: {
             type: :array,
             items: {
-              "$ref": "#/components/schemas/Like"
+              '$ref': '#/components/schemas/Like'
             }
           },
           CreateLikeAttributes: {
@@ -304,14 +304,14 @@ RSpec.configure do |config|
                   user_id: {
                     type: :integer,
                     format: :int64,
-                    description: "ID of user that liked the likeable",
-                    example: 1,
-                  },
+                    description: 'ID of user that liked the likeable',
+                    example: 1
+                  }
                 },
-                required: ["user_id"]
-              },
+                required: ['user_id']
+              }
             },
-            required: ["like"]
+            required: ['like']
           }
         }
       }

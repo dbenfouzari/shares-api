@@ -1,31 +1,30 @@
-class Mutations::UpdateUser < Mutations::BaseMutation
-  description "Update a user"
+# frozen_string_literal: true
 
-  null false
-  argument :id, ID, required: true, description: "User ID"
-  argument :first_name, String, required: false, description: "User first name"
-  argument :last_name, String, required: false, description: "User last name"
-  argument :email, String, required: false, description: "User email"
+module Mutations
+  # Mutation that is used to update a User
+  class UpdateUser < Mutations::BaseMutation
+    description 'Update a user'
 
-  field :user, Types::UserType, description: "Updated user"
-  field :errors, [String], null: false, description: "Errors during user update"
+    null false
+    argument :id, ID, required: true, description: 'User ID'
+    argument :first_name, String, required: false, description: 'User first name'
+    argument :last_name, String, required: false, description: 'User last name'
+    argument :email, String, required: false, description: 'User email'
 
-  def resolve(id:, first_name: nil, last_name: nil, email: nil)
-    user = User.find(id)
-    user.first_name = first_name || user.first_name
-    user.last_name = last_name || user.last_name
-    user.email = email || user.email
+    field :user, Types::UserType, description: 'Updated user'
+    field :errors, [String], null: false, description: 'Errors during user update'
 
-    if user.save
-      {
-        user: user,
-        errors: [],
-      }
-    else
-      {
-        user: nil,
-        errors: user.errors.full_messages,
-      }
+    def resolve(id:, first_name: nil, last_name: nil, email: nil)
+      user = User.find(id)
+      user.first_name = first_name || user.first_name
+      user.last_name = last_name || user.last_name
+      user.email = email || user.email
+
+      if user.save
+        { user:, errors: [] }
+      else
+        { user: nil, errors: user.errors.full_messages }
+      end
     end
   end
 end

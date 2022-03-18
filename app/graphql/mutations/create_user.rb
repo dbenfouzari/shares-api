@@ -1,27 +1,26 @@
-class Mutations::CreateUser < Mutations::BaseMutation
-  description "Create a user"
+# frozen_string_literal: true
 
-  null true
-  argument :first_name, String, required: true, description: "User first name"
-  argument :last_name, String, required: true, description: "User last name"
-  argument :email, String, required: true, description: "User email"
+module Mutations
+  # Mutation that is used to create a User
+  class CreateUser < Mutations::BaseMutation
+    description 'Create a user'
 
-  field :user, Types::UserType, description: "Created user"
-  field :errors, [String], null: false, description: "Errors during user creation"
+    null true
+    argument :first_name, String, required: true, description: 'User first name'
+    argument :last_name, String, required: true, description: 'User last name'
+    argument :email, String, required: true, description: 'User email'
 
-  def resolve(first_name:, last_name:, email:)
-    user = User.new(first_name: first_name, last_name: last_name, email: email)
+    field :user, Types::UserType, description: 'Created user'
+    field :errors, [String], null: false, description: 'Errors during user creation'
 
-    if user.save
-      {
-        user: user,
-        errors: [],
-      }
-    else
-      {
-        user: nil,
-        errors: user.errors.full_messages,
-      }
+    def resolve(first_name:, last_name:, email:)
+      user = User.new(first_name:, last_name:, email:)
+
+      if user.save
+        { user:, errors: [] }
+      else
+        { user: nil, errors: user.errors.full_messages }
+      end
     end
   end
 end

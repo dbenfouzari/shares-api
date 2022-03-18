@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTypeToMedium < ActiveRecord::Migration[7.0]
   def up
     execute <<-SQL

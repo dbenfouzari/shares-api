@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# (/likes) Likes controller
 class LikesController < ApplicationController
   include Behaveable::ResourceFinder
   include Behaveable::RouteExtractor
@@ -27,19 +30,20 @@ class LikesController < ApplicationController
   # DELETE /likes/1
   def destroy
     like = likable.find(params[:id])
-    like.destroy if like
+    like&.destroy
 
     head :no_content
   end
 
   private
-    def likable
-      @behaveable ||= behaveable
-      @behaveable ? @behaveable.likes : Like
-    end
 
-    # Only allow a list of trusted parameters through.
-    def like_params
-      params.require(:like).permit(:likable_id, :likable_type, :user_id)
-    end
+  def likable
+    @behaveable ||= behaveable
+    @behaveable ? @behaveable.likes : Like
+  end
+
+  # Only allow a list of trusted parameters through.
+  def like_params
+    params.require(:like).permit(:likable_id, :likable_type, :user_id)
+  end
 end

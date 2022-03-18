@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# (/media) Media controller
 class MediaController < ApplicationController
-  before_action :set_medium, only: %i[ show update destroy ]
+  before_action :set_medium, only: %i[show update destroy]
 
   # GET /media
   def index
@@ -39,13 +42,14 @@ class MediaController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_medium
-      @medium = Medium.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def medium_params
-      params.require(:medium).permit(:title, :description, :medium_type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_medium
+    @medium = Medium.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def medium_params
+    params.require(:medium).permit(:title, :description, :medium_type)
+  end
 end

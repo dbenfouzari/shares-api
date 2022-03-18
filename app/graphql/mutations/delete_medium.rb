@@ -1,25 +1,24 @@
-class Mutations::DeleteMedium < Mutations::BaseMutation
-  description "Delete a medium"
+# frozen_string_literal: true
 
-  null true
-  argument :id, ID, required: true, description: "Medium ID"
+module Mutations
+  # Mutation that is used to delete a Medium
+  class DeleteMedium < Mutations::BaseMutation
+    description 'Delete a medium'
 
-  field :medium, Types::MediumType, description: "Deleted medium"
-  field :errors, [String], null: false, description: "Errors during medium creation"
+    null true
+    argument :id, ID, required: true, description: 'Medium ID'
 
-  def resolve(id:)
-    medium = Medium.find(id)
+    field :medium, Types::MediumType, description: 'Deleted medium'
+    field :errors, [String], null: false, description: 'Errors during medium creation'
 
-    if medium.delete
-      {
-        medium: medium,
-        errors: [],
-      }
-    else
-      {
-        medium: nil,
-        errors: medium.errors.full_messages,
-      }
+    def resolve(id:)
+      medium = Medium.find(id)
+
+      if medium.delete
+        { medium:, errors: [] }
+      else
+        { medium: nil, errors: medium.errors.full_messages }
+      end
     end
   end
 end

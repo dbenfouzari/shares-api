@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
 
-  post "/graphql", to: "graphql#execute"
+  post '/graphql', to: 'graphql#execute'
 
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
-  end
+  mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
 
   concern :likeable do
-    resources :likes, except: [:show, :update]
+    resources :likes, except: %i[show update]
   end
   concern :commentable do
     resources :comments, except: [:show], concerns: :likeable
@@ -17,5 +17,5 @@ Rails.application.routes.draw do
 
   resources :media
   resources :users, except: [:destroy]
-  resources :shares, except: [:update], concerns: [:likeable, :commentable]
+  resources :shares, except: [:update], concerns: %i[likeable commentable]
 end

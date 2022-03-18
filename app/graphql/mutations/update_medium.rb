@@ -1,29 +1,32 @@
-class Mutations::UpdateMedium < Mutations::BaseMutation
-  description "Update a medium"
+# frozen_string_literal: true
 
-  null false
-  argument :id, ID, required: true, description: "Medium ID"
-  argument :title, String, required: false, description: "Medium title"
-  argument :description, String, required: false, description: "Medium description"
+module Mutations
+  # Mutation that is used to update a Medium
+  class UpdateMedium < Mutations::BaseMutation
+    description 'Update a medium'
 
-  field :medium, Types::MediumType, description: "Updated medium"
-  field :errors, [String], null: false, description: "Errors during medium update"
+    null false
+    argument :id, ID, required: true, description: 'Medium ID'
+    argument :title, String, required: false, description: 'Medium title'
+    argument :description, String, required: false, description: 'Medium description'
 
-  def resolve(id:, title: nil, description: nil)
-    medium = Medium.find(id)
-    medium.title = title || medium.title
-    medium.description = description || medium.description
+    field :medium, Types::MediumType, description: 'Updated medium'
+    field :errors, [String], null: false, description: 'Errors during medium update'
 
-    if medium.save
-      {
-        medium: medium,
-        errors: [],
-      }
-    else
-      {
-        medium: nil,
-        errors: medium.errors.full_messages,
-      }
+    def resolve(
+      id:,
+      title: nil,
+      description: nil
+    )
+      medium = Medium.find(id)
+      medium.title = title || medium.title
+      medium.description = description || medium.description
+
+      if medium.save
+        { medium:, errors: [] }
+      else
+        { medium: nil, errors: medium.errors.full_messages }
+      end
     end
   end
 end

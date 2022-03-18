@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 
 RSpec.describe 'users', type: :request do
   path '/users' do
     get 'Find all users' do
       tags 'Users'
-      produces "application/json"
+      produces 'application/json'
 
       response 200, 'successful' do
-        schema "$ref" => "#/components/schemas/Users"
+        schema '$ref' => '#/components/schemas/Users'
 
         run_test!
       end
@@ -19,13 +21,13 @@ RSpec.describe 'users', type: :request do
       produces 'application/json'
 
       parameter name: :user, in: :body, schema: {
-        "$ref": "#/components/schemas/CreateUserAttributes"
+        '$ref': '#/components/schemas/CreateUserAttributes'
       }
 
       response 201, 'user created' do
-        schema "$ref" => "#/components/schemas/User"
+        schema '$ref' => '#/components/schemas/User'
 
-        let(:user) { { first_name: "John", last_name: "Doe", email: "john@doe.com" } }
+        let(:user) { { first_name: 'John', last_name: 'Doe', email: 'john@doe.com' } }
         run_test!
       end
     end
@@ -40,9 +42,9 @@ RSpec.describe 'users', type: :request do
       produces 'application/json'
 
       response 200, 'successful' do
-        schema "$ref" => "#/components/schemas/User"
+        schema '$ref' => '#/components/schemas/User'
 
-        let(:id) { User.create!(first_name: "John", last_name: "Doe", email: "john@doe.com").id }
+        let(:id) { User.create!(first_name: 'John', last_name: 'Doe', email: 'john@doe.com').id }
         run_test!
       end
     end
@@ -57,10 +59,10 @@ RSpec.describe 'users', type: :request do
       }
 
       response(200, 'successful') do
-        schema "$ref" => "#/components/schemas/User"
+        schema '$ref' => '#/components/schemas/User'
 
-        let(:id) { User.create!(first_name: "John", last_name: "Doe", email: "john@doe.com").id }
-        let(:user) { { first_name: "Jane" } }
+        let(:id) { User.create!(first_name: 'John', last_name: 'Doe', email: 'john@doe.com').id }
+        let(:user) { { first_name: 'Jane' } }
         run_test!
       end
     end
@@ -75,10 +77,10 @@ RSpec.describe 'users', type: :request do
       }
 
       response(200, 'successful') do
-        schema "$ref" => "#/components/schemas/User"
+        schema '$ref' => '#/components/schemas/User'
 
-        let(:id) { User.create!(first_name: "John", last_name: "Doe", email: "john@doe.com").id }
-        let(:user) { { first_name: "Jane" } }
+        let(:id) { User.create!(first_name: 'John', last_name: 'Doe', email: 'john@doe.com').id }
+        let(:user) { { first_name: 'Jane' } }
         run_test!
       end
     end

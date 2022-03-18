@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLikes < ActiveRecord::Migration[7.0]
   def change
     create_table :likes do |t|
@@ -8,6 +10,6 @@ class CreateLikes < ActiveRecord::Migration[7.0]
     end
 
     # A user can only like a likable once.
-    add_index :likes, [:likable_id, :likable_type, :user_id], unique: true
+    add_index :likes, %i[likable_id likable_type user_id], unique: true
   end
 end

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Behaveable
+  # Helpers to find a resource from polymorphic controller association
   module ResourceFinder
     # Get the behaveable object.
     #
@@ -6,7 +9,7 @@ module Behaveable
     # * <tt>ActiveRecord::Model</tt> - Behaveable instance object.
     def behaveable
       klass, param = behaveable_class
-      klass.find(params[param.to_sym]) if klass
+      klass&.find(params[param.to_sym])
     end
 
     # Lookup behaveable class.
@@ -14,12 +17,12 @@ module Behaveable
     # ==== Returns
     # * <tt>Response</tt> - Behaveable class or nil if not found.
     def behaveable_class
-      params.keys.each do |name|
-        if name =~ /(.+)_id$/
-          model = name.match(/(.+)_id/)
+      params.each_key do |name|
+        next unless name =~ /(.+)_id$/
 
-          return model[1].classify.constantize, name
-        end
+        model = name.match(/(.+)_id/)
+
+        return model[1].classify.constantize, name
       end
 
       nil
