@@ -1,7 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'shares', type: :request do
-  let(:medium) { Medium.create! title: "Test" }
+  let(:medium) { Medium.create! title: "Test", medium_type: "movie" }
   let(:user) { User.create! first_name: "John", last_name: "Doe", email: "john@doe.com" }
 
   path '/shares' do

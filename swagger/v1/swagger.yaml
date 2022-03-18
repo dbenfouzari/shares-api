@@ -4,6 +4,74 @@ info:
   title: API V1
   version: v1
 paths:
+  "/{likeableType}/{likeableId}/likes":
+    parameters:
+    - name: likeableType
+      in: path
+      schema:
+        "$ref": "#/components/schemas/LikeableType"
+      required: true
+    - name: likeableId
+      in: path
+      format: int64
+      example: 1
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Find all likes
+      tags:
+      - Likes
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Likes"
+    post:
+      summary: Create a single like
+      tags:
+      - Likes
+      parameters: []
+      responses:
+        '201':
+          description: like created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Like"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CreateLikeAttributes"
+  "/{likeableType}/{likeableId}/likes/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: likeableType
+      in: path
+      schema:
+        "$ref": "#/components/schemas/LikeableType"
+      required: true
+    - name: likeableId
+      in: path
+      format: int64
+      example: 1
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: Delete a like given its ID
+      tags:
+      - Likes
+      responses:
+        '204':
+          description: successful
   "/media":
     get:
       summary: Find all media
@@ -412,3 +480,57 @@ components:
       required:
       - user_id
       - medium_id
+    LikeableType:
+      type: string
+      enum:
+      - shares
+      - comments
+    Like:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Like ID
+          example: 1
+        likable_id:
+          type: integer
+          format: int64
+          description: Likeable ID
+          example: 1
+        likable_type:
+          type: string
+          enum:
+          - Share
+          - Comment
+          description: Likeable type
+          example: Share
+        user_id:
+          type: integer
+          format: int64
+          description: ID of user that liked the likeable
+          example: 1
+      required:
+      - id
+      - likable_id
+      - likable_type
+      - user_id
+    Likes:
+      type: array
+      items:
+        "$ref": "#/components/schemas/Like"
+    CreateLikeAttributes:
+      type: object
+      properties:
+        like:
+          type: object
+          properties:
+            user_id:
+              type: integer
+              format: int64
+              description: ID of user that liked the likeable
+              example: 1
+          required:
+          - user_id
+      required:
+      - like

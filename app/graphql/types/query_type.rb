@@ -58,6 +58,10 @@ module Types
         items = items.eager_load([:medium])
       end
 
+      if lookahead.selects?(:likes)
+        items = items.eager_load([:likes])
+      end
+
       if lookahead.selects?(:user)
         items = items.eager_load([:user])
       end

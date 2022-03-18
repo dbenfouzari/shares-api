@@ -7,5 +7,7 @@ module Types
     field :update_user, mutation: Mutations::UpdateUser
     field :create_share, mutation: Mutations::CreateShare
     field :delete_share, mutation: Mutations::DeleteShare
+    field :like, mutation: Mutations::Like
+    field :unlike, mutation: Mutations::Unlike
   end
 end

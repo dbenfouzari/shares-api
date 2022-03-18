@@ -25,7 +25,7 @@ RSpec.describe 'media', type: :request do
       response 201, 'medium created' do
         schema "$ref" => "#/components/schemas/Medium"
 
-        let(:medium) { { title: "Medium title" } }
+        let(:medium) { { title: "Sample", medium_type: "movie" } }
         run_test!
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe 'media', type: :request do
       response 200, 'successful' do
         schema "$ref" => "#/components/schemas/Medium"
 
-        let(:id) { Medium.create!(title: "Medium title").id }
+        let(:id) { Medium.create!(title: "Sample", medium_type: "movie").id }
         run_test!
       end
     end
@@ -59,8 +59,8 @@ RSpec.describe 'media', type: :request do
       response(200, 'successful') do
         schema "$ref" => "#/components/schemas/Medium"
 
-        let(:id) { Medium.create!(title: "Medium title").id }
-        let(:medium) { { title: "New title" } }
+        let(:id) { Medium.create!(title: "Sample", medium_type: "movie").id }
+        let(:medium) { { title: "New title", medium_type: "movie" } }
         run_test!
       end
     end
@@ -77,8 +77,8 @@ RSpec.describe 'media', type: :request do
       response(200, 'successful') do
         schema "$ref" => "#/components/schemas/Medium"
 
-        let(:id) { Medium.create!(title: "Medium title").id }
-        let(:medium) { { title: "New title" } }
+        let(:id) { Medium.create!(title: "Medium title", medium_type: "movie").id }
+        let(:medium) { { title: "New title", medium_type: "movie" } }
         run_test!
       end
     end
@@ -87,7 +87,7 @@ RSpec.describe 'media', type: :request do
       tags 'Media'
 
       response 204, 'successful' do
-        let(:id) { Medium.create!(title: "Medium title").id }
+        let(:id) { Medium.create!(title: "Medium title", medium_type: "movie").id }
 
         run_test!
       end

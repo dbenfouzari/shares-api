@@ -255,6 +255,64 @@ RSpec.configure do |config|
             },
             required: %w[user_id medium_id]
           },
+          LikeableType: {
+            type: :string,
+            enum: %w[shares comments]
+          },
+          Like: {
+            type: :object,
+            properties: {
+              id: {
+                type: :integer,
+                format: :int64,
+                description: "Like ID",
+                example: 1,
+              },
+              likable_id: {
+                type: :integer,
+                format: :int64,
+                description: "Likeable ID",
+                example: 1,
+              },
+              likable_type: {
+                type: :string,
+                enum: %w[Share Comment],
+                description: "Likeable type",
+                example: "Share",
+              },
+              user_id: {
+                type: :integer,
+                format: :int64,
+                description: "ID of user that liked the likeable",
+                example: 1,
+              },
+            },
+            required: %w[id likable_id likable_type user_id]
+          },
+          Likes: {
+            type: :array,
+            items: {
+              "$ref": "#/components/schemas/Like"
+            }
+          },
+          CreateLikeAttributes: {
+            type: :object,
+            properties: {
+              like: {
+                type: :object,
+                properties: {
+                  user_id: {
+                    type: :integer,
+                    format: :int64,
+                    description: "ID of user that liked the likeable",
+                    example: 1,
+                  },
+                },
+                required: ["user_id"]
+              },
+            },
+            required: ["like"]
+          }
         }
       }
     }
