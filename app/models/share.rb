@@ -21,9 +21,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Share < ApplicationRecord
-  belongs_to :user
-  belongs_to :medium
-
   include Likeable
   include Commentable
+
+  belongs_to :user
+  belongs_to :medium
 end

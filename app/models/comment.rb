@@ -22,6 +22,8 @@
 #  fk_rails_...  (author_id => users.id)
 #
 class Comment < ApplicationRecord
+  include Likeable
+
   belongs_to :author, class_name: 'User'
   belongs_to :commentable, polymorphic: true
 

@@ -17,5 +17,6 @@ Rails.application.routes.draw do
 
   resources :media
   resources :users, except: [:destroy]
+  resources :comments, concerns: :likeable
   resources :shares, except: [:update], concerns: %i[likeable commentable]
 end
